@@ -15,6 +15,10 @@ const Paint = sequelize.define("Paint", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  artist: {
+    type: DataTypes.STRING(100),
+    defaultValue: "anonyme",
+  },
   method: {
     type: DataTypes.STRING(100),
   },

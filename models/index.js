@@ -12,9 +12,9 @@ db.sequelize = sequelize;
 
 // Import des modèles
 db.Paint = require("../models/paint");
-db.Customer = require("../models/customer")(sequelize, Sequelize);
-db.Sale = require("../models/sale")(sequelize, Sequelize);
-db.Certificate = require("../models/certificate")(sequelize, Sequelize);
+db.Customer = require("../models/customer");
+db.Sale = require("../models/sale");
+db.Certificate = require("../models/certificate");
 db.Image = require("../models/image");
 
 // Relations entre les modèles
@@ -23,7 +23,7 @@ db.Customer.hasMany(db.Sale, { foreignKey: "customer_id" });
 db.Sale.belongsTo(db.Paint, { foreignKey: "paint_id" });
 db.Sale.belongsTo(db.Customer, { foreignKey: "customer_id" });
 
-db.Paint.hasMany(db.Certificate, { foreignKey: "paint_id" });
+db.Paint.hasOne(db.Certificate, { foreignKey: "paint_id" });
 db.Customer.hasMany(db.Certificate, { foreignKey: "customer_id" });
 db.Certificate.belongsTo(db.Paint, { foreignKey: "paint_id" });
 db.Certificate.belongsTo(db.Customer, { foreignKey: "customer_id" });
