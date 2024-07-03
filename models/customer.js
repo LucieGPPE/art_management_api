@@ -45,6 +45,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
+    status: {
+      type: DataTypes.ENUM("VERIFIED", "PENDING"),
+      defaultValue: DataTypes.NOW,
+    },
   });
 
   return Customer;

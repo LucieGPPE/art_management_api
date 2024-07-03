@@ -1,12 +1,16 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
-const port = 3000;
+const db = require("./models/index.js");
+const customerRoutes = require("./routes/customerRoutes.js");
+const paintRoutes = require("./routes/paintRoutes.js");
 
-const db = require("./models");
+const app = express();
+const port = 3005;
 
 app.use(express.json());
 
+app.use("/customers", customerRoutes);
+app.use("/paints", paintRoutes);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

@@ -5,14 +5,14 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    peinture_id: {
+    paint_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "Paints",
         key: "id",
       },
     },
-    client_id: {
+    customer_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "Customers",

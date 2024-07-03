@@ -1,30 +1,23 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
 const config = require("../config/config.js");
+const sequelize = require("../config/sequelize");
+
 const env = process.env.NODE_ENV || "development";
 const dbConfig = config[env];
-
-const sequelize = new Sequelize(
-  dbConfig.database,
-  dbConfig.username,
-  dbConfig.password,
-  {
-    host: dbConfig.host,
-    port: dbConfig.port,
-    dialect: dbConfig.dialect,
-  }
-);
 
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.Paint = require("./paint")(sequelize, DataTypes);
-db.Customer = require("./customer")(sequelize, DataTypes);
-db.Sale = require("./sale")(sequelize, DataTypes);
-db.Certificate = require("./certificate")(sequelize, DataTypes);
+// Import des modèles
+db.Paint = require("../models/paint");
+db.Customer = require("../models/customer")(sequelize, Sequelize);
+db.Sale = require("../models/sale")(sequelize, Sequelize);
+db.Certificate = require("../models/certificate")(sequelize, Sequelize);
+db.Image = require("../models/image");
 
-// Relations
+// Relations entre les modèles
 db.Paint.hasMany(db.Sale, { foreignKey: "paint_id" });
 db.Customer.hasMany(db.Sale, { foreignKey: "customer_id" });
 db.Sale.belongsTo(db.Paint, { foreignKey: "paint_id" });
@@ -34,5 +27,8 @@ db.Paint.hasMany(db.Certificate, { foreignKey: "paint_id" });
 db.Customer.hasMany(db.Certificate, { foreignKey: "customer_id" });
 db.Certificate.belongsTo(db.Paint, { foreignKey: "paint_id" });
 db.Certificate.belongsTo(db.Customer, { foreignKey: "customer_id" });
+
+db.Paint.hasMany(db.Image, { foreignKey: "paint_id" });
+db.Image.belongsTo(db.Paint, { foreignKey: "paint_id" });
 
 module.exports = db;
