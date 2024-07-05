@@ -1,4 +1,4 @@
-const { Customer, Sale, Paint, Certificate } = require('../models');
+const { Customer, Sale, Paint, Certificate, Image} = require('../models');
 const { Sequelize, Op } = require('sequelize');
 
 exports.findAllCustomers = async () => {
@@ -34,6 +34,10 @@ exports.findCustomerById = async (customerId) => {
               {
                 model: Certificate,
                 attributes: ['id', 'generatedAt', 'linkPdf'],
+              },
+              {
+                model: Image,
+                attributes: ['id', 'name', 'path'],
               }
             ]
           }
@@ -90,15 +94,15 @@ exports.deleteCustomer = async (customerId) => {
 };
 
 
-exports.editCustomer =  async (req, res) => {
+exports.editCustomer =  async (customerId, customerData) => {
   try {
-    const customer = await Customer.findByPk(req.params.id);
+    const customer = await Customer.findByPk(customerId);
     if (!customer) {
-      return res.status(404).json({ error: "Client non trouvé" });
+      throw new Error("Client non trouvé");
     }
-    await customer.update(req.body);
-    res.json(customer);
+    await customer.update(customerData);
+    return customer;
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    throw new Error("Client non trouvé");
   }
 };

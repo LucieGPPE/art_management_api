@@ -10,7 +10,7 @@ exports.findAllPaint = async () => {
     });
 }
 
-exports.findPaintById = async () => {
+exports.findPaintById = async (id) => {
     return await Paint.findByPk(id, {
         include: {
           model: Image,

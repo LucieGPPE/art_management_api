@@ -14,7 +14,7 @@ router.get("/", paintController.findAllPaint );
 
 router.get("/:id", paintController.findPaintById);
 
-router.post("/", upload.array("images", 10), paintController.addPaint);
+router.post("/", upload.array("files", 10), paintController.addPaint);
 
 router.put("/:id", upload.array("images", 10), paintController.updatePaint );
 

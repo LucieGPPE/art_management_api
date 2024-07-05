@@ -25,7 +25,7 @@ exports.generateCertificate = async (req, res) => {
       TEMPLATE_CERTIFICATE,
       linkPdf,
       paint.title,
-      paint.artistName,
+      paint.artist,
       `${paint.width}x${paint.height}`,
       new Date(paint.createdAt).toLocaleDateString('fr-FR'),
       paint.method
@@ -70,7 +70,7 @@ async function writeTextOnImage(
   imagePath,
   outputImagePath,
   title,
-  artistName,
+  artist,
   dimensions,
   creationDate,
   method
@@ -88,7 +88,7 @@ async function writeTextOnImage(
     // Positionnement du texte
     const textPositions = [
       { text: `Titre : ${title}`, x: X_POSITION, y: 185 },
-      { text: `Artiste : ${artistName}`, x: X_POSITION, y: 220 },
+      { text: `Artiste : ${artist}`, x: X_POSITION, y: 220 },
       { text: `Dimensions : ${dimensions}`, x: X_POSITION, y: 255 },
       { text: `Date de création : ${creationDate}`, x: X_POSITION, y: 290 },
       { text: `Méthode : ${method}`, x: X_POSITION, y: 325 },

@@ -8,7 +8,7 @@ const Certificate = require("../models/certificate");
 const { authMiddleware } = require("../middleware/auth");
 const customerController = require("../controllers/customerController")
 
-// router.use(authMiddleware(['MODERATOR', 'ADMIN']));
+router.use(authMiddleware(['MODERATOR', 'ADMIN']));
 
 // Afficher tous les clients
 router.get("/", customerController.findAllCustomer);
